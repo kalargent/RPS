@@ -34,10 +34,14 @@ var firebaseConfig = {
     // test to see if on click works 
     console.log("on click works");
     
-    var player1 = $("#nameField").val(); 
-    var player2 = $("#nameField").val(); 
+    p1Name = $("#nameField").val(); 
+    p2Name = $("#nameField").val(); 
 
-    console.log(player1); 
-    console.log(player2);
+    console.log(p1Name); 
+    console.log(p2Name);
+
+    if (this.p1Name === null || this.p1Name === undefined) {
+        $("#p1name").text("Player 1: " + p1Name); 
+    }
     
   })  
