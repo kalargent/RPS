@@ -16,3 +16,28 @@ var firebaseConfig = {
 
   var database = firebase.database(); 
 
+  // GLOBAL VARS 
+  // player 1 name, selection, wins and losses 
+  var p1Name = ""; 
+  var p1Selection =""; 
+  var p1Win =""; 
+  var p1Loss =""; 
+
+  // player 2 name, selection, wins and losses 
+  var p2Name =""; 
+  var p2Selection =""; 
+  var p2Win =""; 
+  var p2Loss =""; 
+
+
+  $("#addPlayer").on("click", function () {
+    // test to see if on click works 
+    console.log("on click works");
+    
+    var player1 = $("#nameField").val(); 
+    var player2 = $("#nameField").val(); 
+
+    console.log(player1); 
+    console.log(player2);
+    
+  })  
