@@ -40,7 +40,7 @@ var firebaseConfig = {
         p1Name = $("#nameField").val(); 
         $("#p1name").text("Player 1: " + p1Name); 
         
-        database.ref().push ({
+        database.ref('players/').push ({
             p1Name: p1Name,  
         })
     }
@@ -48,9 +48,17 @@ var firebaseConfig = {
         p2Name = $("#nameField").val(); 
         $("#p2name").text("Player 2: " + p2Name);  
 
-        database.ref().push ({
+        database.ref('players/').push ({
             p2Name: p2Name,  
         })
     }
     
   })  
+
+  var playerList = firebase.database().ref('players/'); 
+  database.ref().on (
+      "value", function (playerSnap) {
+          console.log(playerSnap); 
+          console.log (playerList);  
+    }
+  )
