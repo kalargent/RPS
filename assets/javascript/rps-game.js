@@ -43,5 +43,8 @@ var firebaseConfig = {
     if (this.p1Name === null || this.p1Name === undefined) {
         $("#p1name").text("Player 1: " + p1Name); 
     }
+    else if (this.p1Name !== null || this.p1Name !== undefined) {
+        $("#p2name").text("Player 2: " + p2Name); 
+    }
     
   })  
