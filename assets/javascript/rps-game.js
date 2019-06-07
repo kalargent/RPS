@@ -39,10 +39,18 @@ var firebaseConfig = {
     if (p1Name === null) {
         p1Name = $("#nameField").val(); 
         $("#p1name").text("Player 1: " + p1Name); 
+        
+        database.ref().push ({
+            p1Name: p1Name,  
+        })
     }
     else if (p1Name !== null) {
         p2Name = $("#nameField").val(); 
         $("#p2name").text("Player 2: " + p2Name);  
+
+        database.ref().push ({
+            p2Name: p2Name,  
+        })
     }
     
   })  
