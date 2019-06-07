@@ -18,13 +18,13 @@ var firebaseConfig = {
 
   // GLOBAL VARS 
   // player 1 name, selection, wins and losses 
-  var p1Name = ""; 
+  var p1Name = null; 
   var p1Selection =""; 
   var p1Win =""; 
   var p1Loss =""; 
 
   // player 2 name, selection, wins and losses 
-  var p2Name =""; 
+  var p2Name = null; 
   var p2Selection =""; 
   var p2Win =""; 
   var p2Loss =""; 
@@ -33,18 +33,16 @@ var firebaseConfig = {
   $("#addPlayer").on("click", function () {
     // test to see if on click works 
     console.log("on click works");
-    
-    p1Name = $("#nameField").val(); 
-    p2Name = $("#nameField").val(); 
-
     console.log(p1Name); 
     console.log(p2Name);
 
-    if (this.p1Name === null || this.p1Name === undefined) {
+    if (p1Name === null) {
+        p1Name = $("#nameField").val(); 
         $("#p1name").text("Player 1: " + p1Name); 
     }
-    else if (this.p1Name !== null || this.p1Name !== undefined) {
-        $("#p2name").text("Player 2: " + p2Name); 
+    else if (p1Name !== null) {
+        p2Name = $("#nameField").val(); 
+        $("#p2name").text("Player 2: " + p2Name);  
     }
     
   })  
