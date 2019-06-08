@@ -14,7 +14,8 @@ var firebaseConfig = {
   // CREATE THE FIREBASE DB CONNECTIONS REFS  
 
   var database = firebase.database(); 
-  // var players = database.ref("/players"); 
+  var player1 = database.ref("/players/player1"); 
+  var player2 = database.ref("/players/player2"); 
   // var chat = database.ref(".chat"); 
   // var connectedRef = database.ref(".info/connected"); 
 
@@ -25,12 +26,24 @@ var p1name = "";
 
 $("#addP1").on("click", function () {
   event.preventDefault();
-  p1name = $("#nameInput").val().trim(); 
+  p1name = $("#name1Input").val().trim(); 
   console.log(p1name); 
 
-  firebase.database().ref().push({
+  firebase.database().ref(player1).set({
     p1name:p1name
   })
 })
+
+$("#addP2").on("click", function () {
+  event.preventDefault();
+  p2name = $("#name2Input").val().trim(); 
+  console.log(p2name); 
+
+  firebase.database().ref(player2).set({
+    p2name:p2name
+  })
+})
+
+
 
 
