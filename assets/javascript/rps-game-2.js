@@ -106,12 +106,14 @@ function startGame () {
 
 $(document).on("click", ".p1choiceButton", function() {
   console.log("you clicked on a choice"); 
-  var p1choice = this.text; 
+  var p1choice = $(this).attr ("data-name"); 
   console.log (p1choice); 
 })
 
 $(document).on("click", ".p2choiceButton", function() {
   console.log("you clicked on a choice"); 
+  var p2choice = $(this).attr ("data-name"); 
+  console.log (p2choice); 
 })
 
 function compareChoice(){ 
