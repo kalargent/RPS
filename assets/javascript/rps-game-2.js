@@ -25,6 +25,7 @@ var firebaseConfig = {
   var player2wins = 0; 
   var player2losses=0; 
   var player2ties=0; 
+
   // var chat = database.ref(".chat"); 
   // var connectedRef = database.ref(".info/connected"); 
 
@@ -105,11 +106,17 @@ function startGame () {
 
 $(document).on("click", ".p1choiceButton", function() {
   console.log("you clicked on a choice"); 
+  var p1choice = this.text; 
+  console.log (p1choice); 
 })
 
 $(document).on("click", ".p2choiceButton", function() {
   console.log("you clicked on a choice"); 
 })
+
+function compareChoice(){ 
+
+}
 
 
 
