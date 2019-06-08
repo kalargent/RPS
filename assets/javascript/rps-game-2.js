@@ -19,11 +19,6 @@ var firebaseConfig = {
   // var chat = database.ref(".chat"); 
   // var connectedRef = database.ref(".info/connected"); 
 
-
-
-//   // GLOBAL VARS
-var p1name = ""; 
-
 $("#addP1").on("click", function () {
   event.preventDefault();
   p1name = $("#name1Input").val().trim(); 
@@ -35,6 +30,10 @@ $("#addP1").on("click", function () {
   database.ref(player1).set({
     p1name:p1name
   })
+
+  database.ref("players").on("value", function (playersnap) {
+    console.log ("something changed"); 
+  }) 
 })
 
 $("#addP2").on("click", function () {
@@ -48,11 +47,25 @@ $("#addP2").on("click", function () {
   database.ref(player2).set({
     p2name:p2name
   })
+
+  database.ref("players").on("value", function (playersnap) {
+    console.log ("something changed"); 
+  }) 
+
+  if (player1!=null && player2!=null) {
+    console.log ("ready to play!");
+    startGame() 
+  }
+
 })
 
-database.ref().on("child_added", function (playersnap) {
+function startGame () {
+  console.log ("start game"); 
 
-}) 
+}; 
+
+
+
 
 
 
