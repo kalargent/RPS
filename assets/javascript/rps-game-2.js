@@ -27,9 +27,12 @@ var p1name = "";
 $("#addP1").on("click", function () {
   event.preventDefault();
   p1name = $("#name1Input").val().trim(); 
+  $("#player1entry").empty(); 
+  $(".addP1").hide(); 
+  $("#player1name").text(p1name); 
   console.log(p1name); 
 
-  firebase.database().ref(player1).set({
+  database.ref(player1).set({
     p1name:p1name
   })
 })
@@ -37,12 +40,19 @@ $("#addP1").on("click", function () {
 $("#addP2").on("click", function () {
   event.preventDefault();
   p2name = $("#name2Input").val().trim(); 
+  $("#player2entry").empty(); 
+  $(".addP2").hide(); 
+  $("#player2name").text(p2name); 
   console.log(p2name); 
 
-  firebase.database().ref(player2).set({
+  database.ref(player2).set({
     p2name:p2name
   })
 })
+
+database.ref().on("child_added", function (playersnap) {
+
+}) 
 
 
 
