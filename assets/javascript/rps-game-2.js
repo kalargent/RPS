@@ -14,9 +14,17 @@ var firebaseConfig = {
   // CREATE THE FIREBASE DB CONNECTIONS REFS  
 
   var choices = ["Rock", "Paper", "Scissors"]
-  var database = firebase.database(); 
+  var database = firebase.database();
+  
   var player1 = database.ref("/players/player1"); 
+  var player1wins = 0; 
+  var player1losses=0; 
+  var player1ties=0; 
+
   var player2 = database.ref("/players/player2"); 
+  var player2wins = 0; 
+  var player2losses=0; 
+  var player2ties=0; 
   // var chat = database.ref(".chat"); 
   // var connectedRef = database.ref(".info/connected"); 
 
@@ -68,7 +76,7 @@ function p1choiceGenerator () {
       // for loop to display answer buttons on the screen 
       for (var i = 0; i < choices.length; i++) {
           var a = $("<button>"); 
-          a.addClass("choiceButton"); 
+          a.addClass("p1choiceButton"); 
           a.attr("data-name", choices[i]); 
           a.text(choices[i]); 
           $("#p1choices").append(a);
@@ -82,7 +90,7 @@ function p2choiceGenerator () {
       // for loop to display answer buttons on the screen 
       for (var i = 0; i < choices.length; i++) {
           var a = $("<button>"); 
-          a.addClass("choiceButton"); 
+          a.addClass("p2choiceButton"); 
           a.attr("data-name", choices[i]); 
           a.text(choices[i]); 
           $("#p2choices").append(a);
@@ -94,6 +102,15 @@ function startGame () {
   console.log ("start game"); 
 
 }; 
+
+$(document).on("click", ".p1choiceButton", function() {
+  console.log("you clicked on a choice"); 
+})
+
+$(document).on("click", ".p2choiceButton", function() {
+  console.log("you clicked on a choice"); 
+})
+
 
 
 
