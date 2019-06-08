@@ -13,6 +13,7 @@ var firebaseConfig = {
 
   // CREATE THE FIREBASE DB CONNECTIONS REFS  
 
+  var choices = ["Rock", "Paper", "Scissors"]
   var database = firebase.database(); 
   var player1 = database.ref("/players/player1"); 
   var player2 = database.ref("/players/player2"); 
@@ -25,6 +26,7 @@ $("#addP1").on("click", function () {
   $("#player1entry").empty(); 
   $(".addP1").hide(); 
   $("#player1name").text(p1name); 
+  p1choiceGenerator(); 
   console.log(p1name); 
 
   database.ref(player1).set({
@@ -41,7 +43,8 @@ $("#addP2").on("click", function () {
   p2name = $("#name2Input").val().trim(); 
   $("#player2entry").empty(); 
   $(".addP2").hide(); 
-  $("#player2name").text(p2name); 
+  $("#player2name").text(p2name);
+  p2choiceGenerator(); 
   console.log(p2name); 
 
   database.ref(player2).set({
@@ -59,10 +62,39 @@ $("#addP2").on("click", function () {
 
 })
 
+function p1choiceGenerator () {
+  //empty buttons 
+      // $("#buttons").empty(); 
+      // for loop to display answer buttons on the screen 
+      for (var i = 0; i < choices.length; i++) {
+          var a = $("<button>"); 
+          a.addClass("choiceButton"); 
+          a.attr("data-name", choices[i]); 
+          a.text(choices[i]); 
+          $("#p1choices").append(a);
+          console.log ("choices loaded");    
+      };
+}; 
+
+function p2choiceGenerator () {
+  //empty buttons 
+      // $("#buttons").empty(); 
+      // for loop to display answer buttons on the screen 
+      for (var i = 0; i < choices.length; i++) {
+          var a = $("<button>"); 
+          a.addClass("choiceButton"); 
+          a.attr("data-name", choices[i]); 
+          a.text(choices[i]); 
+          $("#p2choices").append(a);
+          console.log ("choices loaded");    
+      };
+}; 
+
 function startGame () {
   console.log ("start game"); 
 
 }; 
+
 
 
 
