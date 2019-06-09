@@ -17,6 +17,8 @@ var firebaseConfig = {
   var database = firebase.database();
   
   var player1 = database.ref("/players/player1"); 
+  var p1win = 0; 
+
   var player2 = database.ref("/players/player2"); 
   // var chat = database.ref(".chat"); 
   // var connectedRef = database.ref(".info/connected"); 
@@ -58,7 +60,6 @@ $("#addP2").on("click", function () {
 
   if (player1!=null && player2!=null) {
     console.log ("ready to play!");
-    startGame() 
   }
 
 })
@@ -102,6 +103,7 @@ $(document).on("click", ".p1choiceButton", function() {
   console.log (p1choice); 
 
   database.ref(player1).child("choice").set(p1choice); 
+
 })
 
 $(document).on("click", ".p2choiceButton", function() {
@@ -110,10 +112,26 @@ $(document).on("click", ".p2choiceButton", function() {
   console.log (p2choice); 
 
   database.ref(player2).child("choice").set(p2choice); 
+
+  compareChoice(); 
 })
 
+
+
+// function twoChoices () {
+//   if (p1choice!== null && p2choice!== null) {
+//     compareChoice();
+//     console.log("go to compare");  
+
+//   }
+// }
+
 function compareChoice(){ 
-  
+      if (this.p1choice === this.p2choice) {
+        console.log("tie"); 
+      }
+
+    // database.ref(player1).child("wins").set(p1win); 
 }
 
 
