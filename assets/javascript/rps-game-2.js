@@ -137,7 +137,7 @@ function ondatachange (playerSnap) {
     $("#player2entry").empty();
   
     $(".addP2").hide(); 
-    $("#player2name").text(p1name); 
+    $("#player2name").text(p2name); 
     p2choiceGenerator();
     }  
   compareChoice(players); 
@@ -171,6 +171,7 @@ function compareChoice(players){
         console.log("p1win");
         p1wins++; 
         p2losses++; 
+        $(".feedback").html("Player 1 wins.");
         $("#p1wins").text(p1wins);  
         $("#p2losses").text(p2losses); 
         removeChoices(); 
