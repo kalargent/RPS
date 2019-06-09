@@ -17,15 +17,7 @@ var firebaseConfig = {
   var database = firebase.database();
   
   var player1 = database.ref("/players/player1"); 
-  var player1wins = 0; 
-  var player1losses=0; 
-  var player1ties=0; 
-
   var player2 = database.ref("/players/player2"); 
-  var player2wins = 0; 
-  var player2losses=0; 
-  var player2ties=0; 
-
   // var chat = database.ref(".chat"); 
   // var connectedRef = database.ref(".info/connected"); 
 
@@ -108,16 +100,20 @@ $(document).on("click", ".p1choiceButton", function() {
   console.log("you clicked on a choice"); 
   var p1choice = $(this).attr ("data-name"); 
   console.log (p1choice); 
+
+  database.ref(player1).child("choice").set(p1choice); 
 })
 
 $(document).on("click", ".p2choiceButton", function() {
   console.log("you clicked on a choice"); 
   var p2choice = $(this).attr ("data-name"); 
   console.log (p2choice); 
+
+  database.ref(player2).child("choice").set(p2choice); 
 })
 
 function compareChoice(){ 
-
+  
 }
 
 
