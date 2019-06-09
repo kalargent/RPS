@@ -169,16 +169,26 @@ function compareChoice(players){
 
         console.log("not tie"); 
         console.log("p1win");
-        this.p1win++; 
-        this.p2losses--; 
+        p1wins++; 
+        p2losses++; 
+        $("#p1wins").text(p1wins);  
+        $("#p2losses").text(p2losses); 
+        removeChoices(); 
         }
 
         else {
           console.log ("p2 wins"); 
+          p2wins++; 
+          p1losses++; 
+          console.log(p2wins); 
+          $("#p2wins").text(p2wins);  
+          $("#p1losses").text(p1losses); 
+          removeChoices(); 
         }
 
 function removeChoices () {
-  database.ref(players.player1.choice).set(null);
+  database.ref("players/player1/choice").remove();
+  database.ref("players/player2/choice").remove();
 }
  
         
