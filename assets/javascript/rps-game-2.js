@@ -1,3 +1,4 @@
+
 // PROJECT FIREBASE CONFIG AND INITIALIZATION
 var firebaseConfig = {
     apiKey: "AIzaSyDlsdiA16yH7DtTJtvCJfMu411e5e1ejhg",
@@ -35,34 +36,32 @@ $("#addP1").on("click", function () {
   database.ref(player1).set({
     p1name:p1name
   })
-
-  database.ref("players").on("value", function (playersnap) {
-    console.log ("something changed"); 
-  }) 
 })
 
 $("#addP2").on("click", function () {
   event.preventDefault();
+
   p2name = $("#name2Input").val().trim(); 
   $("#player2entry").empty(); 
   $(".addP2").hide(); 
   $("#player2name").text(p2name);
   p2choiceGenerator(); 
   console.log(p2name); 
-
   database.ref(player2).set({
     p2name:p2name
   })
-
-  database.ref("players").on("value", function (playersnap) {
-    console.log ("something changed"); 
-  }) 
 
   if (player1!=null && player2!=null) {
     console.log ("ready to play!");
   }
 
 })
+
+database.ref("players").on("value", function (playersnap) {
+  console.log ("something changed"); 
+  console.log (playersnap.val()); 
+  compareChoice(playersnap.val()); 
+}) 
 
 function p1choiceGenerator () {
   //empty buttons 
@@ -93,6 +92,7 @@ function p2choiceGenerator () {
 }; 
 
 function startGame () {
+
   console.log ("start game"); 
 
 }; 
@@ -112,10 +112,7 @@ $(document).on("click", ".p2choiceButton", function() {
   console.log (p2choice); 
 
   database.ref(player2).child("choice").set(p2choice); 
-
-  compareChoice(); 
-})
-
+}) 
 
 
 // function twoChoices () {
@@ -126,10 +123,18 @@ $(document).on("click", ".p2choiceButton", function() {
 //   }
 // }
 
-function compareChoice(){ 
-      if (this.p1choice === this.p2choice) {
+function compareChoice(playersnap){ 
+      if (playersnap.player1.choice === playersnap.player2.choice) {
         console.log("tie"); 
+        $(".feedback").html("tie!"); 
       }
+
+      else if ((this.p1choice == "rock" && this.p2choice == "scissors") || (this.p1choice == "paper" && this.p2choice == "rock") || (this.p1choice == "scissors" && this.p2choice == "paper")) {
+      console.log("p1 wins!")
+
+      }
+
+      
 
     // database.ref(player1).child("wins").set(p1win); 
 }
