@@ -18,21 +18,33 @@ var firebaseConfig = {
   var database = firebase.database();
   
   var player1 = database.ref("/players/player1"); 
-  var p1win = 0; 
+  var p1wins = 0; 
+  var p1losses = 0; 
+  var p1ties = 0; 
 
   var player2 = database.ref("/players/player2"); 
+  var p2wins = 0; 
+  var p2losses = 0;
+  var p2ties = 0; 
   // var chat = database.ref(".chat"); 
   // var connectedRef = database.ref(".info/connected"); 
 
-$("#addP1").on("click", function () {
+  $("#reset").on("click", function () {
+    database.ref(player1).remove(); 
+    console.log("P1 removed"); 
+    database.ref(player2).remove(); 
+    console.log("P2 removed"); 
+
+  })
+
+  $("#addP1").on("click", function () {
   event.preventDefault();
   p1name = $("#name1Input").val().trim(); 
-  $("#player1entry").empty(); 
-  $(".addP1").hide(); 
-  $("#player1name").text(p1name); 
-  p1choiceGenerator(); 
+  // $("#player1entry").empty(); 
+  // $(".addP1").hide(); 
+  // $("#player1name").text(p1name); 
+  // p1choiceGenerator(); 
   console.log(p1name); 
-
   database.ref(player1).set({
     p1name:p1name
   })
@@ -57,11 +69,7 @@ $("#addP2").on("click", function () {
 
 })
 
-database.ref("players").on("value", function (playersnap) {
-  console.log ("something changed"); 
-  console.log (playersnap.val()); 
-  compareChoice(playersnap.val()); 
-}) 
+
 
 function p1choiceGenerator () {
   //empty buttons 
@@ -91,11 +99,11 @@ function p2choiceGenerator () {
       };
 }; 
 
-function startGame () {
+// function startGame () {
 
-  console.log ("start game"); 
+//   console.log ("start game"); 
 
-}; 
+// }; 
 
 $(document).on("click", ".p1choiceButton", function() {
   console.log("you clicked on a choice"); 
@@ -112,38 +120,82 @@ $(document).on("click", ".p2choiceButton", function() {
   console.log (p2choice); 
 
   database.ref(player2).child("choice").set(p2choice); 
-}) 
+})
 
+function ondatachange (playerSnap) {
+  console.log ("something changed");
+  var players = playerSnap.val()
+  if (!players) return;
+  if ($(".addP1").is(":visible") && (players.player1)){
+  $("#player1entry").empty();
 
-// function twoChoices () {
-//   if (p1choice!== null && p2choice!== null) {
-//     compareChoice();
-//     console.log("go to compare");  
+  $(".addP1").hide(); 
+  $("#player1name").text(p1name); 
+  p1choiceGenerator();
+  }  
+  if ($(".addP2").is(":visible") && (players.player2)){
+    $("#player2entry").empty();
+  
+    $(".addP2").hide(); 
+    $("#player2name").text(p1name); 
+    p2choiceGenerator();
+    }  
+  compareChoice(players); 
+  
+  }
 
-//   }
-// }
+database.ref("players").on("value", ondatachange) 
 
-function compareChoice(playersnap){ 
-      if (playersnap.player1.choice === playersnap.player2.choice) {
+function compareChoice(players){ 
+      console.log(players);  
+      if (!players.player1) return; 
+      if (!players.player2) return;
+      if (!players.player1.choice) return; 
+      if (!players.player2.choice) return;
+
+      if (players.player1.choice === players.player2.choice) {
         console.log("tie"); 
-        $(".feedback").html("tie!"); 
-      }
+        $(".feedback").html("Tie! You both picked " + players.player1.choice + ".");
+        p1ties++; 
+        p2ties++; 
+        console.log("p1 ties" + p1ties); 
+        $("#p1ties").text(p1ties);  
+        $("#p2ties").text(p2ties);  
+        removeChoices(); 
+        }
+        
+      else if 
+        ((players.player1.choice == "Rock" && players.player2.choice == "Scissors") || (players.player1.choice == "Paper" && players.player2.choice == "Rock") || (players.player1.choice == "Scissors" && players.player2.choice == "Paper")) {
 
-      else if ((this.p1choice == "rock" && this.p2choice == "scissors") || (this.p1choice == "paper" && this.p2choice == "rock") || (this.p1choice == "scissors" && this.p2choice == "paper")) {
-      console.log("p1 wins!")
+        console.log("not tie"); 
+        console.log("p1win");
+        this.p1win++; 
+        this.p2losses--; 
+        }
 
-      }
+        else {
+          console.log ("p2 wins"); 
+        }
+
+function removeChoices () {
+  database.ref(players.player1.choice).set(null);
+}
+ 
+        
+        
+      
+      
+
+//       else if ((this.p1choice == "rock" && this.p2choice == "scissors") || (this.p1choice == "paper" && this.p2choice == "rock") || (this.p1choice == "scissors" && this.p2choice == "paper")) {
+//       console.log("p1 wins!")
+
+//       }
 
       
 
     // database.ref(player1).child("wins").set(p1win); 
-}
-
-
-
-
-
-
+// 
+  }
 
 
 
