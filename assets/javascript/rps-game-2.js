@@ -29,13 +29,18 @@ var firebaseConfig = {
   // var chat = database.ref(".chat"); 
   // var connectedRef = database.ref(".info/connected"); 
 
+  $(".modal").modal("show"); 
+  
   $("#reset").on("click", function () {
+    resetGame(); 
+  })
+
+  function resetGame () {
     database.ref(player1).remove(); 
     console.log("P1 removed"); 
     database.ref(player2).remove(); 
-    console.log("P2 removed"); 
-
-  })
+    console.log("P2 removed");
+  }
 
   $("#addP1").on("click", function () {
   event.preventDefault();
