@@ -31,21 +31,28 @@ var firebaseConfig = {
   // var chat = database.ref(".chat"); 
   // var connectedRef = database.ref(".info/connected"); 
   
-  startGame(); 
+  // $("#startModal").modal("show"); 
+
+  startGame();
 
   function startGame () {
-    // 
-    if (!gameState) {    
-      // pop start modal
-      $("#startModal").modal("show"); 
-      // supress join modal
-      $("#joinModal").modal("hide");
-      console.log ("startgame function runs"); 
-    }
-    // else {
-    //   $("#startModal").modal("hide");
-    //   $("#joinModal").modal("show"); 
-    // }
+
+    var state = gameState.once("value").then ( function (snapshot) {
+      if (snapshot.val() == false) {    
+        // pop start modal
+        $("#startModal").modal("show"); 
+        // supress join modal
+        $("#joinModal").modal("hide");
+        console.log ("startgame function runs"); 
+      }  
+      
+      else {
+  
+        console.log (gameState); 
+      }
+    }) 
+     
+    
 
     // if page loads 
 
@@ -64,9 +71,9 @@ var firebaseConfig = {
     // close modal
   }
   
-  function gameState () {
-    // add a new bucket for game state and set it to true 
-  }
+  // function gameState () {
+  //   // add a new bucket for game state and set it to false
+  // }
   
   $("#reset").on("click", function () {
     resetGame(); 
@@ -77,6 +84,9 @@ var firebaseConfig = {
     console.log("P1 removed"); 
     database.ref(player2).remove(); 
     console.log("P2 removed");
+    database.ref().set({ 
+      gameState:false,  
+    } ) 
   }
 
   $("#addP1").on("click", function () {
@@ -166,15 +176,13 @@ function ondatachange (playerSnap) {
   if (!players) return;
   if ($(".addP1").is(":visible") && (players.player1)){
   $("#player1entry").empty();
-
   $(".addP1").hide(); 
   $("#player1name").text(p1name); 
-  $("player1title").html(p1name); 
+  $("player1title").text(p1name); 
   p1choiceGenerator();
   }  
   if ($(".addP2").is(":visible") && (players.player2)){
     $("#player2entry").empty();
-  
     $(".addP2").hide(); 
     $("#player2name").text(p2name); 
     p2choiceGenerator();
