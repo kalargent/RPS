@@ -29,7 +29,32 @@ var firebaseConfig = {
   // var chat = database.ref(".chat"); 
   // var connectedRef = database.ref(".info/connected"); 
 
-  $(".modal").modal("show"); 
+  $("#startModal").modal("show");
+  
+  function startGame () { 
+  
+    // pop modal
+    // check state 
+    console.log ("start game"); 
+    // if page loads 
+      // if game state exists 
+      // display join modal 
+    //else page loads 
+      // show start modal 
+  }; 
+  
+  function playerStart () { 
+    // if player clicks the start button on the modal 
+    // gameState(); 
+  }
+  
+  function playerJoin () { 
+    // close modal
+  }
+  
+  function gameState () {
+    // add a new bucket for game state and set it to true 
+  }
   
   $("#reset").on("click", function () {
     resetGame(); 
@@ -104,11 +129,7 @@ function p2choiceGenerator () {
       };
 }; 
 
-// function startGame () {
 
-//   console.log ("start game"); 
-
-// }; 
 
 $(document).on("click", ".p1choiceButton", function() {
   console.log("you clicked on a choice"); 
