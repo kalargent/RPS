@@ -26,17 +26,28 @@ var firebaseConfig = {
   var p2wins = 0; 
   var p2losses = 0;
   var p2ties = 0; 
+
+  var gameState = database.ref("/gameState"); 
   // var chat = database.ref(".chat"); 
   // var connectedRef = database.ref(".info/connected"); 
   
   startGame(); 
 
   function startGame () {
+    // 
+    if (gameState == null) {
     // pop modal
-    $("#startModal").modal("show"); 
-    // check state 
-    console.log ("startgame function runs"); 
+      $("#startModal").modal("show"); 
+      $("#joinModal").modal("show");
+      console.log ("startgame function runs"); 
+    }
+    else {
+      $("#startModal").modal("hide");
+      $("#joinModal").modal("show"); 
+    }
+
     // if page loads 
+
       // if game state exists 
       // display join modal 
     //else page loads 
