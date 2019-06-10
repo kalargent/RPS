@@ -54,10 +54,10 @@ $("#addP2").on("click", function () {
   event.preventDefault();
 
   p2name = $("#name2Input").val().trim(); 
-  $("#player2entry").empty(); 
-  $(".addP2").hide(); 
-  $("#player2name").text(p2name);
-  p2choiceGenerator(); 
+  // $("#player2entry").empty(); 
+  // $(".addP2").hide(); 
+  // $("#player2name").text(p2name);
+  // p2choiceGenerator(); 
   console.log(p2name); 
   database.ref(player2).set({
     p2name:p2name
@@ -131,6 +131,7 @@ function ondatachange (playerSnap) {
 
   $(".addP1").hide(); 
   $("#player1name").text(p1name); 
+  $("player1title").html(p1name); 
   p1choiceGenerator();
   }  
   if ($(".addP2").is(":visible") && (players.player2)){
