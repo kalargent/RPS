@@ -28,14 +28,14 @@ var firebaseConfig = {
   var p2ties = 0; 
   // var chat = database.ref(".chat"); 
   // var connectedRef = database.ref(".info/connected"); 
+  
+  startGame(); 
 
-  $("#startModal").modal("show");
-  
-  function startGame () { 
-  
+  function startGame () {
     // pop modal
+    $("#startModal").modal("show"); 
     // check state 
-    console.log ("start game"); 
+    console.log ("startgame function runs"); 
     // if page loads 
       // if game state exists 
       // display join modal 
