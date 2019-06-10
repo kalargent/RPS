@@ -35,16 +35,17 @@ var firebaseConfig = {
 
   function startGame () {
     // 
-    if (gameState == null) {
-    // pop modal
+    if (!gameState) {    
+      // pop start modal
       $("#startModal").modal("show"); 
-      $("#joinModal").modal("show");
+      // supress join modal
+      $("#joinModal").modal("hide");
       console.log ("startgame function runs"); 
     }
-    else {
-      $("#startModal").modal("hide");
-      $("#joinModal").modal("show"); 
-    }
+    // else {
+    //   $("#startModal").modal("hide");
+    //   $("#joinModal").modal("show"); 
+    // }
 
     // if page loads 
 
