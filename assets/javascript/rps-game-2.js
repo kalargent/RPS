@@ -243,4 +243,19 @@ function removeChoices () {
 // }
 
 
+$("#p1submitMsg").on ("click", function () {
+    $("#messages").append("<br>"); 
+    $("#messages").append(p1name + ": " + $("#p1message").val()); 
+    $("#p2message").val(""); 
+    console.log ("p1 message sent"); 
+})
+
+$("#p2submitMsg").on ("click", function () {
+  $("#messages").append("<br>");
+  $("#messages").append(p2name + ": " + $("#p2message").val()); 
+  $("#p2message").val(""); 
+  console.log ("p2 message sent"); 
+})
+
+
 

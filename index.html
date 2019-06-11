@@ -133,9 +133,40 @@
             </div>
             <div class="row"> 
                 <div class="col-md-12"> <h3>Chat Goes Here!</h3> </div>
+                <div id="row">
+                    <div id="p1" class="col-md-4">
+                    <div id="p1chatSection">
+                        <label for="content">P1 Message: </label>
+                        <input id="p1message" type="text">
+                        <input id="p1submitMsg" type="button" value="Send">
+                    </div>  
+                </div>
+
+                <div id="empty" class="col-md-4">
+                        
+                </div>
+                
+                <div id="p2" class="col-md-4">
+                        <div id="p2chatSection">
+                            <label for="content">P2 Message: </label><input id="p2message" type="text">
+                            <input id="p2submitMsg" type="button" value="Send">
+                        </div>  
+                    </div>
+
+                <div id="row">
+                    <div id="messages">
+                </div>        
+                </div>
             </div>
 
         </div>
+
+
+        <div id="main">
+            <div class="card-body" id="messages"></div>
+        </div>
+          
+
     <script src="assets/javascript/rps-game-2.js"></script>
     </body>
 </html>
