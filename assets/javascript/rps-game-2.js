@@ -38,44 +38,26 @@ var firebaseConfig = {
   function startGame () {
 
     var state = gameState.once("value").then ( function (snapshot) {
-      if (snapshot.val() == false) {    
+      if (snapshot.val() === false) {    
         // pop start modal
         $("#startModal").modal("show"); 
         // supress join modal
         $("#joinModal").modal("hide");
-        console.log ("startgame function runs"); 
+        console.log ("game is off"); 
       }  
       
       else {
-  
-        console.log (gameState); 
+        // hide start modal
+        $("#startModal").modal("hide"); 
+        // show join modal
+        $("#joinModal").modal("show");
+        console.log ("game is on"); 
       }
     }) 
-     
-    
-
-    // if page loads 
-
-      // if game state exists 
-      // display join modal 
-    //else page loads 
-      // show start modal 
   }; 
+
   
-  function playerStart () { 
-    // if player clicks the start button on the modal 
-    // gameState(); 
-  }
-  
-  function playerJoin () { 
-    // close modal
-  }
-  
-  // function gameState () {
-  //   // add a new bucket for game state and set it to false
-  // }
-  
-  $("#reset").on("click", function () {
+  $("#startGame").on("click", function () {
     resetGame(); 
   })
 
@@ -85,9 +67,20 @@ var firebaseConfig = {
     database.ref(player2).remove(); 
     console.log("P2 removed");
     database.ref().set({ 
-      gameState:false,  
-    } ) 
+      gameState:true,  
+    })  
+    $("#startModal").modal("toggle");
   }
+
+  $("#joinGame").on("click", function () {
+    joinGame(); 
+  })
+
+  function joinGame (){
+    $("#joinModal").modal("toggle");
+    console.log ("you're in!"); 
+  }
+
 
   $("#addP1").on("click", function () {
   event.preventDefault();
@@ -194,7 +187,7 @@ function ondatachange (playerSnap) {
 database.ref("players").on("value", ondatachange) 
 
 function compareChoice(players){ 
-      console.log(players);  
+      // console.log(players);  
       if (!players.player1) return; 
       if (!players.player2) return;
       if (!players.player1.choice) return; 
@@ -231,29 +224,23 @@ function compareChoice(players){
           console.log(p2wins); 
           $("#p2wins").text(p2wins);  
           $("#p1losses").text(p1losses); 
-          removeChoices(); 
+          removeChoices();  
         }
+
 
 function removeChoices () {
   database.ref("players/player1/choice").remove();
   database.ref("players/player2/choice").remove();
 }
- 
-        
-        
-      
-      
-
-//       else if ((this.p1choice == "rock" && this.p2choice == "scissors") || (this.p1choice == "paper" && this.p2choice == "rock") || (this.p1choice == "scissors" && this.p2choice == "paper")) {
-//       console.log("p1 wins!")
-
-//       }
-
-      
-
-    // database.ref(player1).child("wins").set(p1win); 
-// 
   }
+
+// function gameOver () {
+//   if ((p1wins === 0) || (p2wins = 0)) { 
+//     $("#gameOverModal").modal("show"); 
+//     console.log ("gameOver"); 
+//   } 
+//   else return; 
+// }
 
 
 
