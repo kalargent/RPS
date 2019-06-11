@@ -38,7 +38,8 @@ var firebaseConfig = {
   function startGame () {
 
     var state = gameState.once("value").then ( function (snapshot) {
-      if (snapshot.val() === false) {    
+      console.log (snapshot.val()); 
+      if (snapshot.val() == false) {    
         // pop start modal
         $("#startModal").modal("show"); 
         // supress join modal
@@ -56,16 +57,15 @@ var firebaseConfig = {
     }) 
   }; 
 
+  $("#reset").on("click", function () {
+    gameOver(); 
+  })
   
   $("#startGame").on("click", function () {
     resetGame(); 
   })
 
   function resetGame () {
-    database.ref(player1).remove(); 
-    console.log("P1 removed"); 
-    database.ref(player2).remove(); 
-    console.log("P2 removed");
     database.ref().set({ 
       gameState:true,  
     })  
@@ -202,6 +202,7 @@ function compareChoice(players){
         $("#p1ties").text(p1ties);  
         $("#p2ties").text(p2ties);  
         removeChoices(); 
+        testGameOver(); 
         }
         
       else if 
@@ -215,6 +216,7 @@ function compareChoice(players){
         $("#p1wins").text(p1wins);  
         $("#p2losses").text(p2losses); 
         removeChoices(); 
+        testGameOver(); 
         }
 
         else {
@@ -225,8 +227,8 @@ function compareChoice(players){
           $("#p2wins").text(p2wins);  
           $("#p1losses").text(p1losses); 
           removeChoices();  
+          testGameOver(); 
         }
-
 
 function removeChoices () {
   database.ref("players/player1/choice").remove();
@@ -234,19 +236,33 @@ function removeChoices () {
 }
   }
 
-// function gameOver () {
-//   if ((p1wins === 0) || (p2wins = 0)) { 
-//     $("#gameOverModal").modal("show"); 
-//     console.log ("gameOver"); 
-//   } 
-//   else return; 
-// }
+  $("#gameOver").on("click", function () {
+    console.log ("clicked Great");
+    gameOver(); 
+  })
+
+function testGameOver () {
+  console.log ("test game Over function");
+  if ((p1wins === 3) || (p2wins === 3)) { 
+    $("#gameOverModal").modal("show"); 
+    console.log ("gameOver"); 
+  } 
+  else return; 
+}
+
+function gameOver () {
+  console.log ("game Over function"); 
+  database.ref().set({ 
+    gameState:false,  
+  }) 
+}
 
 
 $("#p1submitMsg").on ("click", function () {
     $("#messages").append("<br>"); 
     $("#messages").append(p1name + ": " + $("#p1message").val()); 
-    $("#p2message").val(""); 
+    $("#p1message").val(""); 
+    database.ref("/chats").push($("#p1message").val()); 
     console.log ("p1 message sent"); 
 })
 
@@ -254,6 +270,7 @@ $("#p2submitMsg").on ("click", function () {
   $("#messages").append("<br>");
   $("#messages").append(p2name + ": " + $("#p2message").val()); 
   $("#p2message").val(""); 
+  database.ref("/chats").push($("#p2message").val()); 
   console.log ("p2 message sent"); 
 })
 
