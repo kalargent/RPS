@@ -300,6 +300,7 @@ $("#p1submitMsg").on ("click", function () {
     // $("#messages").append(p1name + ": " + $("#p1message").val()); 
     // $("#p1message").val(""); 
     database.ref("/chats").push(p1name + ": " + $("#p1message").val()); 
+    $("#p1message").val(""); 
     console.log ("p1 message sent"); 
 })
 
@@ -308,6 +309,7 @@ $("#p2submitMsg").on ("click", function () {
   // $("#messages").append(p2name + ": " + $("#p2message").val()); 
   // $("#p2message").val(""); 
   database.ref("/chats").push(p2name + ": " + $("#p2message").val()); 
+  $("#p2message").val(""); 
   console.log ("p2 message sent"); 
 })
 
