@@ -55,6 +55,9 @@ var firebaseConfig = {
         console.log ("game is on"); 
       }
     }) 
+    
+    $("#p1chatSection").hide(); 
+    $("#p2chatSection").hide();
   }; 
 
   $("#reset").on("click", function () {
@@ -90,6 +93,7 @@ var firebaseConfig = {
   // $("#player1name").text(p1name); 
   // p1choiceGenerator(); 
   console.log(p1name); 
+  $("#p1chatSection").show();
   database.ref(player1).set({
     p1name:p1name
   })
@@ -103,7 +107,8 @@ $("#addP2").on("click", function () {
   // $(".addP2").hide(); 
   // $("#player2name").text(p2name);
   // p2choiceGenerator(); 
-  console.log(p2name); 
+  console.log(p2name);
+  $("#p2chatSection").show(); 
   database.ref(player2).set({
     p2name:p2name
   })
@@ -167,6 +172,12 @@ function ondatachange (playerSnap) {
   console.log ("something changed");
   var players = playerSnap.val()
   if (!players) return;
+
+  if ((gameState = true) && ($("#startmodal").is(":visible"))){
+    $("#startModal").modal("hide"); 
+    $("#joinModal").modal("show"); 
+  }
+
   if ($(".addP1").is(":visible") && (players.player1)){
   $("#player1entry").empty();
   $(".addP1").hide(); 
@@ -182,14 +193,19 @@ function ondatachange (playerSnap) {
     p2choiceGenerator();
     }  
   compareChoice(players);  
-  
-  if ($("#startModal").is(":visible") && (gameState = true)) {
+  }
+
+
+database.ref("players").on("value", ondatachange) 
+
+function checkGameState () {
+  if ((gameState = true) && ($("#startmodal").is(":visible"))){
     $("#startModal").modal("hide"); 
     $("#joinModal").modal("show"); 
   }
-  }
+}
 
-database.ref("players").on("value", ondatachange) 
+database.ref("gameState").once("value", checkGameState); 
 
 function compareChoice(players){ 
       // console.log(players);  
@@ -249,6 +265,7 @@ function removeChoices () {
 function testGameOver () {
   console.log ("test game Over function");
   if ((p1wins === 3) || (p2wins === 3)) { 
+    $("#whoWins").text ("The game is over.")
     $("#gameOverModal").modal("show"); 
     console.log ("gameOver"); 
   } 
@@ -260,6 +277,7 @@ function gameOver () {
   database.ref().set({ 
     gameState:false,  
   }) 
+  location.reload(); 
 }
 
 var chatHistory = database.ref("chats"); 
