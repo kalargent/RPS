@@ -171,17 +171,22 @@ function ondatachange (playerSnap) {
   $("#player1entry").empty();
   $(".addP1").hide(); 
   $("#player1name").text(p1name); 
-  $("player1title").text(p1name); 
+  $("#p2chatSection").hide();   
   p1choiceGenerator();
   }  
   if ($(".addP2").is(":visible") && (players.player2)){
     $("#player2entry").empty();
     $(".addP2").hide(); 
     $("#player2name").text(p2name); 
+    $("#p1chatSection").hide();
     p2choiceGenerator();
     }  
-  compareChoice(players); 
+  compareChoice(players);  
   
+  if ($("#startModal").is(":visible") && (gameState = true)) {
+    $("#startModal").modal("hide"); 
+    $("#joinModal").modal("show"); 
+  }
   }
 
 database.ref("players").on("value", ondatachange) 
