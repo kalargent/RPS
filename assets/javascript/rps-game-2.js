@@ -265,7 +265,12 @@ function removeChoices () {
 function testGameOver () {
   console.log ("test game Over function");
   if ((p1wins === 3) || (p2wins === 3)) { 
-    $("#whoWins").text ("The game is over.")
+    if (p1wins == 3) {
+    $("#whoWins").text ("Player 1 is the winner!")
+    }
+    else {
+      $("#whoWins").text ("Player 2 is the winner!")
+    }
     $("#gameOverModal").modal("show"); 
     console.log ("gameOver"); 
   } 
