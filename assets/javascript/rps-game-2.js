@@ -257,22 +257,33 @@ function gameOver () {
   }) 
 }
 
+var chatHistory = database.ref("/chats"); 
+
+function updateChat () {
+  database.ref("/chats").on("value", function (chatsnap) {
+    $("#messages").chatsnap.val(); 
+  })
+}
 
 $("#p1submitMsg").on ("click", function () {
-    $("#messages").append("<br>"); 
-    $("#messages").append(p1name + ": " + $("#p1message").val()); 
-    $("#p1message").val(""); 
+    // $("#messages").append("<br>"); 
+    // $("#messages").append(p1name + ": " + $("#p1message").val()); 
+    // $("#p1message").val(""); 
     database.ref("/chats").push($("#p1message").val()); 
+    updateChat(); 
     console.log ("p1 message sent"); 
 })
 
 $("#p2submitMsg").on ("click", function () {
-  $("#messages").append("<br>");
-  $("#messages").append(p2name + ": " + $("#p2message").val()); 
-  $("#p2message").val(""); 
+  // $("#messages").append("<br>");
+  // $("#messages").append(p2name + ": " + $("#p2message").val()); 
+  // $("#p2message").val(""); 
   database.ref("/chats").push($("#p2message").val()); 
+  updateChat(); 
   console.log ("p2 message sent"); 
 })
+
+
 
 
 
