@@ -69,10 +69,10 @@ var firebaseConfig = {
   })
 
   function resetGame () {
+    $("#startModal").modal("toggle");
     database.ref().set({ 
       gameState:true,  
     })  
-    $("#startModal").modal("toggle");
   }
 
   $("#joinGame").on("click", function () {
@@ -173,10 +173,6 @@ function ondatachange (playerSnap) {
   var players = playerSnap.val()
   if (!players) return;
 
-  if ((gameState = true) && ($("#startmodal").is(":visible"))){
-    $("#startModal").modal("hide"); 
-    $("#joinModal").modal("show"); 
-  }
 
   if ($(".addP1").is(":visible") && (players.player1)){
   $("#player1entry").empty();
@@ -194,18 +190,29 @@ function ondatachange (playerSnap) {
     }  
   compareChoice(players);  
   }
+  
+  gameState.on("value", function (snapshot) {
+    
+    if ((snapshot.val() == true) && ($("#startModal").is(":visible"))){
+      $("#startModal").modal("toggle"); 
+      console.log("game state change"); 
+      $("#joinModal").modal("toggle"); 
+    }
+  })
+    
+
 
 
 database.ref("players").on("value", ondatachange) 
 
-function checkGameState () {
-  if ((gameState = true) && ($("#startmodal").is(":visible"))){
-    $("#startModal").modal("hide"); 
-    $("#joinModal").modal("show"); 
-  }
-}
+// function checkGameState () {
+//   if ((gameState = true) && ($("#startmodal").is(":visible"))){
+//     $("#startModal").modal("hide"); 
+//     $("#joinModal").modal("show"); 
+//   }
+// }
 
-database.ref("gameState").once("value", checkGameState); 
+// database.ref("gameState").once("value", checkGameState); 
 
 function compareChoice(players){ 
       // console.log(players);  
